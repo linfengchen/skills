@@ -227,13 +227,10 @@ Write `.design/steps/NN_<name>.md` per step using the template in [references/TE
 1. Read state → `current_step = N`.
 2. Read `steps/NN_<name>.md` (the step card).
 3. Implement only what the card specifies. Write target files.
-4. **Enforce inline:**
-   - **YAGNI** — no speculative abstractions or config knobs.
-   - **KISS** — simplest correct form wins. No clever one-liners.
-   - **DRY** — grep existing target code for a helper before writing a new one.
-   - **SRP** — one function, one job. Functions > ~40 lines must be split.
-   - **Rule of three** — no shared helper until the third similar call site exists.
-   - **Naming** — describe intent, not type. `userByID`, not `getUserFunc`.
+4. **Enforce inline:** apply [`../PRINCIPLES.md`](../PRINCIPLES.md) **Tier 1** in full (YAGNI / KISS / DRY+Rule-of-Three / SRP / naming / fail-fast / explicit / pure-where-possible). Specifically for `design`:
+   - Soft target: functions ≤ ~40 LOC; split if exceeded.
+   - Apply Tier 2/3 (cohesion, coupling, layer respect, error taxonomy) at module boundaries.
+   - No shared helper until the third similar call site exists (Rule of Three).
 5. Compile / type-check. Fix errors.
 6. Run the step's attached unit tests. Fix failures.
 7. Run linter. Fix warnings.
@@ -313,6 +310,7 @@ Works identically on **Claude Code** and **Cursor** — both auto-discover the s
 
 ## References (loaded on demand)
 
+- **[../PRINCIPLES.md](../PRINCIPLES.md)** — shared 4-tier software design principles (YAGNI/KISS/DRY/SRP, SOLID, cohesion/coupling, layering, error taxonomy, etc.). Read this before Phase 3 architecture and Phase 5 implementation.
 - [references/STATE_SCHEMA.md](references/STATE_SCHEMA.md) — `state.json` schema, repair protocol, auto_advance semantics.
 - [references/TEMPLATES.md](references/TEMPLATES.md) — output templates for every phase.
 - [references/LANGUAGE_STACKS.md](references/LANGUAGE_STACKS.md) — per-target-language layer patterns, preferred stacks, idioms. Read during Phase 3.

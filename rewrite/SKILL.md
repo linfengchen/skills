@@ -208,13 +208,10 @@ Update `state.json → modules` array with `{n, name, status}` for each step. Se
 2. Read `.rewrite/modules/NN_<name>.md` (the step card).
 3. If the card's source references need fresh detail, read the specific source file(s) — never the whole codebase.
 4. Implement only what the card specifies. Write target files as specified.
-5. **Enforce inline:**
-   - **YAGNI** — no speculative abstractions. Implement only what the card describes.
-   - **KISS** — simplest correct form wins. No clever one-liners.
-   - **DRY** — before writing a helper, grep the target codebase for an existing one. If exists, use it.
-   - **SRP** — one function, one job. If a function exceeds ~40 lines, split it.
-   - **Rule of three** — do not extract a shared function until the third similar call site exists.
-   - **Naming** — names describe intent, not type. `userByID`, not `getUserFunc`.
+5. **Enforce inline:** apply [`../PRINCIPLES.md`](../PRINCIPLES.md) **Tier 1** in full (YAGNI / KISS / DRY+Rule-of-Three / SRP / naming / fail-fast / explicit / pure-where-possible). Specifically for `rewrite`:
+   - Soft target: functions ≤ ~40 LOC; split if exceeded.
+   - Use target-language idioms from `LANGUAGE_MAPPING.md`, not source-language patterns.
+   - Apply Tier 2/3 (cohesion, coupling, layer respect, error taxonomy) at module boundaries.
 6. Compile / type-check. Fix errors before continuing.
 7. Run the step's attached unit tests (only those). Fix failures.
 8. Run linter. Fix warnings.
@@ -296,6 +293,7 @@ No platform-specific syntax is used. All tool invocations are expressed in natur
 
 ## References (loaded on demand)
 
+- **[../PRINCIPLES.md](../PRINCIPLES.md)** — shared 4-tier software design principles (YAGNI/KISS/DRY/SRP, SOLID, cohesion/coupling, layering, error taxonomy, etc.). Read this before Phase 5 implementation.
 - [references/LANGUAGE_MAPPING.md](references/LANGUAGE_MAPPING.md) — idiom mappings per target language (Go, Rust, Node/TS, Python). Read during Phase 3.
 - [references/TEMPLATES.md](references/TEMPLATES.md) — file templates for Phase 1 module cards, Phase 4 step cards, Phase 6 failure rows, etc.
 - [references/STATE_SCHEMA.md](references/STATE_SCHEMA.md) — `state.json` schema + example.
