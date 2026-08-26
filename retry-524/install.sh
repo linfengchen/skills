@@ -41,7 +41,7 @@ jq --arg cmd "$CMD" '
   def wire(ev):
     .hooks[ev] = (
       ((.hooks[ev] // []) | map(select(any(.hooks[]?; .command? == $cmd) | not)))
-      + [ { matcher: "*", hooks: [ { type: "command", command: $cmd, statusMessage: "Checking for gateway timeout" } ] } ]
+      + [ { matcher: "*", hooks: [ { type: "command", command: $cmd, statusMessage: "Checking upstream status" } ] } ]
     );
   .hooks = (.hooks // {})
   | wire("PostToolUse")
